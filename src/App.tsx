@@ -24,13 +24,16 @@ const tools: { id: ToolId; title: string; description: string; icon: typeof Moon
   { id: 'watermark', title: 'Watermark PDF', description: 'Add a light ownership or draft label to every page.', icon: Type },
 ]
 
+const appBase = import.meta.env.BASE_URL.replace(/\/$/, '')
+const appPath = (path: string) => `${appBase}${path.startsWith('/') ? path : `/${path}`}` || '/'
+
 function App() {
   const [activeTool, setActiveTool] = useState<ToolId | null>(null)
   const [activePage, setActivePage] = useState<PageId | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    const path = window.location.pathname
+    const path = window.location.pathname.startsWith(appBase) ? window.location.pathname.slice(appBase.length) || '/' : window.location.pathname
     if (path.startsWith('/tools/')) {
       const slug = path.split('/').pop()
       const match = tools.find((tool) => tool.id === slug)
@@ -52,7 +55,7 @@ function App() {
   const openTool = (id: ToolId) => {
     setActiveTool(id)
     setActivePage(null)
-    window.history.pushState({}, '', `/tools/${id}`)
+    window.history.pushState({}, '', appPath(`/tools/${id}`))
     window.scrollTo({ top: 0, behavior: 'smooth' })
     setMobileOpen(false)
   }
@@ -60,7 +63,7 @@ function App() {
   const openPage = (page: PageId) => {
     setActivePage(page)
     setActiveTool(null)
-    window.history.pushState({}, '', `/${page}`)
+    window.history.pushState({}, '', appPath(`/${page}`))
     window.scrollTo({ top: 0, behavior: 'smooth' })
     setMobileOpen(false)
   }
@@ -68,7 +71,7 @@ function App() {
   const goHome = () => {
     setActiveTool(null)
     setActivePage(null)
-    window.history.pushState({}, '', '/')
+    window.history.pushState({}, '', appPath('/'))
     window.scrollTo({ top: 0, behavior: 'smooth' })
     setMobileOpen(false)
   }

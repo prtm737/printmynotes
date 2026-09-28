@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-# Add the production sitemap URL here after choosing the domain.
+Sitemap: https://prtm737.github.io/printmynotes/sitemap.xml
