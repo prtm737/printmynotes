@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "typecheck": "tsc -b",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "check": "npm run typecheck && vite build",
+    "preview": "vite preview",
+    "deploy:cloudflare": "npm run build && npx wrangler pages deploy dist --project-name=printmynotes"
   },
   "dependencies": {
     "jszip": "^3.10.1",

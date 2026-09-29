@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://prtm737.github.io/printmynotes/sitemap.xml
+Sitemap: https://printmynotes.in/sitemap.xml
